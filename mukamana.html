@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>hello mukamana</title>
+</head>
+<body>
+<section>
+	<a href="#origene">works</a>
+</section>
+<section>
+	
+	<p>
+		
+		his lesson is part of an ongoing User Authentication tutorial. The first part is here: User Authentication along with all the files you need.
+
+For the login page, what we'll do is to get the username and password from textboxes on a form. We'll first see if the username exists in the database. If it does, then we can go ahead and check the password using an inbuilt PHP function called password_verify. If the login is successful, we can do two things: one, set up a session variable that can be used on all pages on your site. This sessions variable is used so that users who aren't logged in won't be able to see any pages, but are redirected to the login page. The other thing we'll do is to redirect a successfully logged in user to the correct page. After all, you don't want users hanging about on the login page.
+
+So open up the script called login.php and take a look at the code. (It's one of the files you downloaded from here: scripts.)
+
+The bottom of the page is the HTML for the user form. It's just two textboxes and a Submit button. The PHP code starts by setting up some variables:
+$uname = "";
+$pword = "";
+$errorMessage = "";
+
+We then get the username and password from the textboxes:
+
+$uname = $_POST['username'];
+$pword = $_POST['password'];
+
+The connection to the server and database is the same as before (use require to get the configure file you set up, and get those constants.)
+
+require '../../configure.php';
+$database = "login";
+$db_found = new mysqli(DB_SERVER, DB_USER, DB_PASS, $database );
+
+If the database is found, then we start a prepared statement:
+
+$SQL = $db_found->prepare('SELECT * FROM login WHERE L1 = ?');
+
+The SQL selects all the records where the username matches the one provided:
+
+$SQL->bind_param('s', $uname);
+
+We then execute and see if there any results:
+
+$SQL->execute();
+$result = $SQL->get_result();
+
+We only need to check if there is one result, as our signup page ensured that all usernames were unique.
+
+if ($result->num_rows == 1) {
+
+If there are no results then we can print out a message:
+
+$errorMessage = "username FAILED";
+
+(Although we've said "username FAILED", you probably don't want to be this explicit. The idea is to not give any clues to an attacker. So you could just say something like "Login failed". For testing purposes, though, we'd like to know why something went wrong.)
+
+If we do get a result back then we need the full result array:
+
+$db_field = $result->fetch_assoc();
+
+The fetch_assoc function, remember, brings you back an array, with all positions in the array filled with a field in the database row that was returned. The $db_field variable would then look like this:
+
+$db_field['$ID'] = an ID
+$db_field['L1'] = a username
+$db_field['L2'] = a password
+	</p>
+	<p>
+		
+		oop-in-php
+How to USE the PHP OOP CMS?
+First of all, you need to download the code (link is given below the video), then please extract the folder and copy/paste it into the htdocs folder inside your XAMPP/WAMP installation. Next, please open your favorite browser and write localhost/phpblog and you should see the website, but you’ll not see much of the content, because you have to import the database as well which has all the content such as posts, categories and admin login.
+
+How to Import the Database?
+Please go to the localhost/phpmyadmin and create a new database with the name “phpblog” and then click the import button in the menu (as showing in the video below), import the database file phpblog.sql which is located in the folder phpblog inside htdocs. And you are all done, now visit your blog on localhost and you should see a nicely working website in front of you. You can also check out its Admin Panel with the email “abc@gmail.com” and password “walikhan“. You can change the admin details in the table admin.
+
+Video Tutorial to Use this CMS
+If you still have confusions then please watch the video tutorial below in order to practically understand the steps and beautifully use the code I’ve given here. The video is on YouTube, and you can also watch all of my other tutorials on YouTube my channel.
+
+
+I’m sure, you’ve enjoyed the video tutorial, and you are fully aware about using this simple and beautiful CMS in PHP OOP, now you can download the source code from the link given below.
+
+Download the Code
+If you face any difficulty while downloading or using this code then please comment with your question below so I can help you out. Thank you for watching and reading.
+
+Last Updated On:Tuesday, May 24, 2016
+	</p>
+</section>
+<section>
+	
+	<p>
+		
+		his lesson is part of an ongoing User Authentication tutorial. The first part is here: User Authentication along with all the files you need.
+
+For the login page, what we'll do is to get the username and password from textboxes on a form. We'll first see if the username exists in the database. If it does, then we can go ahead and check the password using an inbuilt PHP function called password_verify. If the login is successful, we can do two things: one, set up a session variable that can be used on all pages on your site. This sessions variable is used so that users who aren't logged in won't be able to see any pages, but are redirected to the login page. The other thing we'll do is to redirect a successfully logged in user to the correct page. After all, you don't want users hanging about on the login page.
+
+So open up the script called login.php and take a look at the code. (It's one of the files you downloaded from here: scripts.)
+
+The bottom of the page is the HTML for the user form. It's just two textboxes and a Submit button. The PHP code starts by setting up some variables:
+$uname = "";
+$pword = "";
+$errorMessage = "";
+
+We then get the username and password from the textboxes:
+
+$uname = $_POST['username'];
+$pword = $_POST['password'];
+
+The connection to the server and database is the same as before (use require to get the configure file you set up, and get those constants.)
+
+require '../../configure.php';
+$database = "login";
+$db_found = new mysqli(DB_SERVER, DB_USER, DB_PASS, $database );
+
+If the database is found, then we start a prepared statement:
+
+$SQL = $db_found->prepare('SELECT * FROM login WHERE L1 = ?');
+
+The SQL selects all the records where the username matches the one provided:
+
+$SQL->bind_param('s', $uname);
+
+We then execute and see if there any results:
+
+$SQL->execute();
+$result = $SQL->get_result();
+
+We only need to check if there is one result, as our signup page ensured that all usernames were unique.
+
+if ($result->num_rows == 1) {
+
+If there are no results then we can print out a message:
+
+$errorMessage = "username FAILED";
+
+(Although we've said "username FAILED", you probably don't want to be this explicit. The idea is to not give any clues to an attacker. So you could just say something like "Login failed". For testing purposes, though, we'd like to know why something went wrong.)
+
+If we do get a result back then we need the full result array:
+
+$db_field = $result->fetch_assoc();
+
+The fetch_assoc function, remember, brings you back an array, with all positions in the array filled with a field in the database row that was returned. The $db_field variable would then look like this:
+
+$db_field['$ID'] = an ID
+$db_field['L1'] = a username
+$db_field['L2'] = a password
+	</p>
+	<p>
+		
+		oop-in-php
+How to USE the PHP OOP CMS?
+First of all, you need to download the code (link is given below the video), then please extract the folder and copy/paste it into the htdocs folder inside your XAMPP/WAMP installation. Next, please open your favorite browser and write localhost/phpblog and you should see the website, but you’ll not see much of the content, because you have to import the database as well which has all the content such as posts, categories and admin login.
+
+How to Import the Database?
+Please go to the localhost/phpmyadmin and create a new database with the name “phpblog” and then click the import button in the menu (as showing in the video below), import the database file phpblog.sql which is located in the folder phpblog inside htdocs. And you are all done, now visit your blog on localhost and you should see a nicely working website in front of you. You can also check out its Admin Panel with the email “abc@gmail.com” and password “walikhan“. You can change the admin details in the table admin.
+
+Video Tutorial to Use this CMS
+If you still have confusions then please watch the video tutorial below in order to practically understand the steps and beautifully use the code I’ve given here. The video is on YouTube, and you can also watch all of my other tutorials on YouTube my channel.
+
+
+I’m sure, you’ve enjoyed the video tutorial, and you are fully aware about using this simple and beautiful CMS in PHP OOP, now you can download the source code from the link given below.
+
+Download the Code
+If you face any difficulty while downloading or using this code then please comment with your question below so I can help you out. Thank you for watching and reading.
+
+Last Updated On:Tuesday, May 24, 2016
+	</p>
+</section>
+<section id ="origene">
+	
+hello origene , I love you so much!.
+</section>
+</body>
+</html>
